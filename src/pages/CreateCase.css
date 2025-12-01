@@ -1,0 +1,175 @@
+.create-case-page {
+  min-height: 100vh;
+}
+
+.create-case-header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.create-case-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.create-case-header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.create-case-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.daily-limit-info {
+  display: flex;
+  justify-content: space-between;
+  background: #f8f9fa;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  border: 1px solid #e9ecef;
+}
+
+.limit-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.limit-label {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.limit-count {
+  font-weight: 700;
+  font-size: 18px;
+  color: #28a745;
+}
+
+.limit-count.limit-reached {
+  color: #dc3545;
+}
+
+.create-case-form {
+  margin-bottom: 30px;
+}
+
+.char-count {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+  text-align: right;
+}
+
+.char-count-warning {
+  color: #ffc107;
+}
+
+.char-count-danger {
+  color: #dc3545;
+}
+
+.checkbox-group {
+  margin-top: 10px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.checkbox-label:hover {
+  background: #f8f9fa;
+}
+
+.checkbox-input {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  accent-color: #667eea;
+}
+
+.checkbox-text {
+  font-size: 14px;
+  color: #333;
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.submission-info {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  border-left: 4px solid #667eea;
+}
+
+.submission-info h4 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.submission-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.submission-info li {
+  padding: 8px 0;
+  color: #555;
+  font-size: 14px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.submission-info li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #28a745;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .create-case-header h1 {
+    font-size: 2rem;
+  }
+  
+  .create-case-card {
+    padding: 20px;
+    margin: 0 10px;
+  }
+  
+  .daily-limit-info {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .form-actions .btn {
+    width: 100%;
+  }
+} 
