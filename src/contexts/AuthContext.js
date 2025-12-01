@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -113,18 +119,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const updateUserStats = async (updates) => {
-    try {
-      const userRef = doc(db, "users", currentUser.uid);
-      await updateDoc(userRef, updates);
-      await loadUserStats(currentUser.uid);
-    } catch (error) {
-      console.error("Error updating user stats:", error);
-      throw error;
-    }
-  };
+  const updateUserStats = useCallback(
+    async (updates) => {
+      try {
+        const userRef = doc(db, "users", currentUser.uid);
+        await updateDoc(userRef, updates);
+        await loadUserStats(currentUser.uid);
+      } catch (error) {
+        console.error("Error updating user stats:", error);
+        throw error;
+      }
+    },
+    [currentUser]
+  );
 
-  const resetDailyCounts = async () => {
+  const resetDailyCounts = useCallback(async () => {
     if (!currentUser) return;
 
     const today = new Date().toDateString();
@@ -148,7 +157,7 @@ export const AuthProvider = ({ children }) => {
     if (Object.keys(updates).length > 0) {
       await updateUserStats(updates);
     }
-  };
+  }, [currentUser, userStats, updateUserStats]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -164,13 +173,11 @@ export const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (currentUser && userStats) {
-      // Intentionally not adding resetDailyCounts to deps to avoid unnecessary re-runs
       resetDailyCounts();
     }
-  }, [currentUser, userStats]);
+  }, [currentUser, userStats, resetDailyCounts]);
 
   const value = {
     currentUser,

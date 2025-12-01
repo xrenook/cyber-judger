@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { useAuth } from "../contexts/AuthContext";
@@ -12,12 +12,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("stats");
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    loadUserData();
-  }, []);
-
-  const loadUserData = async () => {
+  const loadUserData = useCallback(async () => {
     try {
       setLoading(true);
 
@@ -53,7 +48,11 @@ const Profile = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentUser.uid]);
+
+  useEffect(() => {
+    loadUserData();
+  }, [loadUserData]);
 
   const getVerdictPercentage = (verdict) => {
     const totalVotes = userVotes.length;

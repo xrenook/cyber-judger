@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   doc,
@@ -32,14 +32,7 @@ const CaseDetail = () => {
   const [userVote, setUserVote] = useState(null);
   const [userComment, setUserComment] = useState(null);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    // loadCaseData and loadComments are stable enough here; avoid adding them to deps
-    loadCaseData();
-    loadComments();
-  }, [id]);
-
-  const loadCaseData = async () => {
+  const loadCaseData = useCallback(async () => {
     try {
       const caseDoc = await getDoc(doc(db, "cases", id));
       if (!caseDoc.exists()) {
@@ -83,9 +76,9 @@ const CaseDetail = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, currentUser, navigate]);
 
-  const loadComments = async () => {
+  const loadComments = useCallback(async () => {
     try {
       const commentsRef = collection(db, "comments");
       const q = query(
@@ -119,7 +112,12 @@ const CaseDetail = () => {
     } catch (error) {
       console.error("Error loading comments:", error);
     }
-  };
+  }, [id, currentUser, userComment]);
+
+  useEffect(() => {
+    loadCaseData();
+    loadComments();
+  }, [loadCaseData, loadComments]);
 
   const handleVote = async (verdict) => {
     if (!currentUser) {
