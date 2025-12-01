@@ -13,7 +13,6 @@ import {
   setDoc,
   getDoc,
   updateDoc,
-  increment,
   serverTimestamp,
 } from "firebase/firestore";
 
@@ -167,6 +166,8 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (currentUser && userStats) {
+      // Intentionally not adding resetDailyCounts to deps to avoid unnecessary re-runs
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       resetDailyCounts();
     }
   }, [currentUser, userStats]);

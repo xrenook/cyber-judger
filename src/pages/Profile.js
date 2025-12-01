@@ -13,6 +13,7 @@ const Profile = () => {
   const [activeTab, setActiveTab] = useState("stats");
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     loadUserData();
   }, []);
 

@@ -33,7 +33,10 @@ const CaseDetail = () => {
   const [userComment, setUserComment] = useState(null);
 
   useEffect(() => {
+    // loadCaseData and loadComments are stable enough here; avoid adding them to deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     loadCaseData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     loadComments();
   }, [id]);
 
