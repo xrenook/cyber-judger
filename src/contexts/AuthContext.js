@@ -164,10 +164,10 @@ export const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (currentUser && userStats) {
       // Intentionally not adding resetDailyCounts to deps to avoid unnecessary re-runs
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       resetDailyCounts();
     }
   }, [currentUser, userStats]);

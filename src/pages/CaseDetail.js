@@ -32,11 +32,10 @@ const CaseDetail = () => {
   const [userVote, setUserVote] = useState(null);
   const [userComment, setUserComment] = useState(null);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     // loadCaseData and loadComments are stable enough here; avoid adding them to deps
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     loadCaseData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     loadComments();
   }, [id]);
 
